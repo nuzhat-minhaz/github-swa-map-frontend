@@ -1,0 +1,8 @@
+{
+    "routes": [
+        {
+            "route": "/api/CreateOrUpdatePerson",
+            "allowedRoles": ["authenticated"]
+        }
+    ]
+}

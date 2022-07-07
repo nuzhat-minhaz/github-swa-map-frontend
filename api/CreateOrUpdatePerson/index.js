@@ -1,7 +1,7 @@
 module.exports = async function (context, req) {
     const user = req.user;
     
-    if (!user && user.username) {
+    if (!user?.username) {
         context.res = {
             status: 401,
         }
