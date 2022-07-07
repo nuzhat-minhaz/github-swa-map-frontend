@@ -1,0 +1,28 @@
+{
+  "bindings": [
+    {
+      "authLevel": "anonymous",
+      "type": "httpTrigger",
+      "direction": "in",
+      "name": "req",
+      "methods": [
+        "get",
+        "post"
+      ]
+    },
+    {
+      "type": "http",
+      "direction": "out",
+      "name": "res"
+    },
+    {
+      "type": "cosmosDB",
+      "direction": "out",
+      "name": "person",
+      "databaseName": "bitproject",
+      "collectionName": "people",
+      "createIfNotExists": false,
+      "connectionStringSetting": "20220630bitproject_DOCUMENTDB"
+    }
+  ]
+}
