@@ -30,7 +30,7 @@
                 }
             });
 
-            map.events.add('load', async function () {
+            map.events.add('ready', async function () {
                 // fetch people from the api
                 const response = await fetch('/api/GetPeople');
                 const people = await response.json();
@@ -44,12 +44,20 @@
                     map.markers.add(marker);
                 });
 
-                // //Add a marker to the map.
-                // var marker = new atlas.HtmlMarker({
-                //     position: [-122.33, 47.6],
-                //     htmlContent: '<img src="https://github.com/anthonychu.png?size=40" />'
-                // });
-                // map.markers.add(marker);
+                map.events.add('click', async function (e) {
+                    const [longitude, latitude] = e.position;
+                    const response = await fetch('/api/CreateOrUpdatePerson', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            id: 'anthonychu',
+                            longitude,
+                            latitude
+                        })
+                    });
+                });
             });
         }
     </script>
