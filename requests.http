@@ -1,0 +1,12 @@
+GET http://localhost:7071/api/GetPeople
+
+###
+
+POST http://localhost:7071/api/CreateOrUpdatePerson
+Content-Type: application/json
+
+{
+    "id": "nuzhat",
+    "longitude": 0,
+    "latitude": 0
+}
