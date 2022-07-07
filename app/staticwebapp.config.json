@@ -4,5 +4,8 @@
             "route": "/api/CreateOrUpdatePerson",
             "allowedRoles": ["authenticated"]
         }
-    ]
+    ],
+    "platform": {
+        "apiRuntime": "node:16"
+    }
 }
