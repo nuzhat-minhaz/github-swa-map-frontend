@@ -1,11 +1,74 @@
-<html lang="en">
+<!DOCTYPE html>
+<html>
+
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title></title>
+
+    <meta charset="utf-8">
+
+    <!-- Ensures that IE and Edge uses the latest version and doesn't emulate an older version -->
+    <meta http-equiv="x-ua-compatible" content="IE=Edge">
+
+    <!-- Ensures the web page looks good on all screen sizes. -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Add references to the Azure Maps Map control JavaScript and CSS files. -->
+    <link rel="stylesheet" href="https://atlas.microsoft.com/sdk/javascript/mapcontrol/2/atlas.min.css" type="text/css">
+    <script src="https://atlas.microsoft.com/sdk/javascript/mapcontrol/2/atlas.min.js"></script>
+
+
+    <script type="text/javascript">
+        //Create an instance of the map control and set some options.
+        function InitMap() {
+            var map = new atlas.Map('myMap', {
+                center: [-122.33, 47.6],
+                zoom: 1,
+                language: 'en-US',
+                authOptions: {
+                    authType: 'subscriptionKey',
+                    subscriptionKey: 'Kmsl7WVSXlvKcUq5b9eFMGJnK66I3b_lHW6NJEL61rw'
+                }
+            });
+
+            map.events.add('load', async function () {
+                // fetch people from the api
+                const response = await fetch('/api/GetPeople');
+                const people = await response.json();
+
+                // create a marker for each person
+                people.forEach(person => {
+                    var marker = new atlas.HtmlMarker({
+                        position: [person.longitude, person.latitude],
+                        htmlContent: `<img width=40 height=40 src="https://github.com/${person.id}.png?size=40" />`
+                    });
+                    map.markers.add(marker);
+                });
+
+                // //Add a marker to the map.
+                // var marker = new atlas.HtmlMarker({
+                //     position: [-122.33, 47.6],
+                //     htmlContent: '<img src="https://github.com/anthonychu.png?size=40" />'
+                // });
+                // map.markers.add(marker);
+            });
+        }
+    </script>
+
+    <style>
+        html,
+        body {
+            margin: 0;
+        }
+
+        #myMap {
+            height: 100vh;
+            width: 100vw;
+        }
+    </style>
 </head>
-<body>
-    hello bitproject
+
+<body onload="InitMap()">
+    <div id="myMap"></div>
 </body>
+
 </html>
